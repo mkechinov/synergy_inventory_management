@@ -5,7 +5,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = "synergy_inventory_management"
-  s.version     = '1.3.0'
+  s.version     = '1.3.1'
   s.authors     = 'Sergey Chazov (Service & Consulting)'
   s.email       = 'service@secoint.ru'
   s.homepage    = "https://github.com/secoint/synergy_inventory_management"
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.required_ruby_version = '>= 1.8.7'
-  s.add_dependency('spree_core', '>= 1.3.0')
+  s.add_dependency('spree_core', '~> 2.1')
 
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"

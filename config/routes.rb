@@ -1,9 +1,7 @@
 Spree::Core::Engine.routes.draw do
-  namespace :admin do
-    match 'edit_multiple_products' => "products#edit_multiple", :as => :edit_multiple_products_start, :via => :get
-    match 'edit_multiple_products/:id' => "products#edit_multiple", :as => :edit_multiple_products, :via => :get
-    match 'edit_multiple_products/:id' => "products#update_multiple", :via => :put
-    match 'edit_multiple_products/:id' => "products#destroy_multiple", :via => :delete
-    match 'switch_product_availability/:id' => "products#switch_availability", :via => :put, :as => :switch_product_availability
-  end
+  get '/admin/edit_multiple_products' => "admin/products#edit_multiple", :as => :admin_edit_multiple_products_start
+  get '/admin/edit_multiple_products/:id' => "admin/products#edit_multiple", :as => :admin_edit_multiple_products
+  put '/admin/edit_multiple_products/:id' => "admin/products#update_multiple"
+  delete '/admin/edit_multiple_products/:id' => "admin/products#destroy_multiple"
+  put '/admin/switch_product_availability/:id' => "admin/products#switch_availability", :as => :admin_switch_product_availability
 end

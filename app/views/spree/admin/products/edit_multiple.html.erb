@@ -17,7 +17,7 @@
   <% if @taxon.present? %>
 
       <%= render :partial => 'js_head', :locals => {:current_taxon => @taxon} %>
-      
+
       <% content_for :sidebar do %>
         <div class="sidebar-title">
           <span><%= t("sim.catalog") %></span>
@@ -54,7 +54,7 @@
       <div class="clear"></div>
 
       <div id="products_list" class="twelve columns">
-        <div id="current_path"><%= @taxon.self_and_ancestors.map {|tax| link_to tax.name, admin_edit_multiple_products_path(tax) }.join(" > ").html_safe  %></div>
+        <div id="current_path"><%= @taxon.self_and_ancestors.map {|tax| link_to tax.name, admin_edit_multiple_products_path(tax.id) }.join(" > ").html_safe  %></div>
 
         <table class="index" id="listing_products">
           <thead>
@@ -95,7 +95,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= form_tag admin_edit_multiple_products_path(@taxon), :id => 'product_ids_form', :method => :put, :style => "display:none" do %>
+        <%= form_tag admin_edit_multiple_products_path(@taxon.id), :id => 'product_ids_form', :method => :put, :style => "display:none" do %>
         <% end %>
         <%= paginate(@collection, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>
         <%= form_tag '', :method => :get, :id => 'per_page_form' do %>

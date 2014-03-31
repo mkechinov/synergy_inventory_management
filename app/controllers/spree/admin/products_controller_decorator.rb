@@ -15,7 +15,7 @@ module Spree
 
       @search = Product.where(:id => product_ids).ransack(params[:q])
      # pagination_options = {:per_page => (session[:im_per_page] || 10), :page => params[:page]}
-      @collection = @search.result.group_by_products_id.page(params[:page]).per(session[:im_per_page] || 10)
+      @collection = @search.result.group('spree_products.id').page(params[:page]).per(session[:im_per_page] || 10)
 
       respond_with(@collection) do |format|
         format.html
@@ -24,7 +24,7 @@ module Spree
     end
 
     def update_multiple
-      @collection.each { |pr| pr.update_attributes!(params[:product]) }
+      @collection.each { |pr| pr.update_attributes!(params[:product].permit!) }
       flash[:notice] = I18n.t('sim.products_successfully_updated')
       respond_with(@collection) do |format|
         format.html { redirect_to admin_edit_multiple_products_url(:id => params[:id]) }
