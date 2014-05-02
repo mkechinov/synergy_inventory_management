@@ -73,7 +73,7 @@
                 <td><%= check_box_tag 'product_ids[]', product.id, false, :class => 'product-select' %></td>
                 <td><%= product.sku %></td>
                 <td><%= product.name %></td>
-                <td><%= product.price %></td>
+                <td><input type="text" value="<%= product.price %>" name="price-<%= product.id%>" id="product-price-<%= product.id%>" size="8" onblur="synergy_update_product_price(<%= product.id%>)"></td>
                 <td class="has_image"><%= product.images.any? ? image_tag('admin/icons/camera.png', :title => t("sim.has_photo")) : '' %></td>
                 <td class="actions">
                   <%= form_for product, :url => admin_product_path(product), :remote => true, :html => {:style => 'display:inline'} do |f| %>
@@ -108,7 +108,24 @@
   <% end %>
 </div>
 
-
+<script type="text/javascript">
+    function synergy_update_product_price(id) {
+        var $element = $('#product-price-' + id);
+        var price = parseFloat($element.val().replace(',', '.'));
+        if(price > 0) {
+            $.ajax(
+                    '<%= edit_multiple_products_price_path %>',
+                    {
+                        method: 'put',
+                        data: {
+                            product_id: id,
+                            price: price
+                        }
+                    }
+            );
+        }
+    }
+</script>
 
 
 

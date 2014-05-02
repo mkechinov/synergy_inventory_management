@@ -1,6 +1,6 @@
 module Spree
   Admin::ProductsController.class_eval do
-    skip_before_filter :load_resource, :only => [:edit_multiple, :update_multiple, :destroy_multiple]
+    skip_before_filter :load_resource, :only => [:edit_multiple, :update_multiple, :destroy_multiple, :admin_edit_multiple_update_price]
     before_filter :load_multiple, :only => [:update_multiple, :destroy_multiple]
 
 
@@ -45,9 +45,24 @@ module Spree
       end
     end
 
+    def edit_multiple_price
+      product = Spree::Product.find params[:product_id]
+      price = params[:price].to_f
+      if price > 0
+        product.update_attribute :price, price
+      end
+      render nothing: true
+    end
+
+
+
+
+
     def load_multiple
       @collection = Product.where(:id => params[:product_ids])
     end
+
+
 
     private :load_multiple
 

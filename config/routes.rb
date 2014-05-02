@@ -4,4 +4,5 @@ Spree::Core::Engine.routes.draw do
   put '/admin/edit_multiple_products/:id' => "admin/products#update_multiple"
   delete '/admin/edit_multiple_products/:id' => "admin/products#destroy_multiple"
   put '/admin/switch_product_availability/:id' => "admin/products#switch_availability", :as => :admin_switch_product_availability
+  put '/admin/edit_multiple_products_price' => "admin/products#edit_multiple_price", as: :edit_multiple_products_price
 end
